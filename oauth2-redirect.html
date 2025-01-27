@@ -21,7 +21,7 @@
                         id_token: params.get('id_token') || '',
                         expires_in: params.get('expires_in') || '',
                         token_type: params.get('token_type') || 'Bearer'
-                    }, window.location.origin+"/index.html");
+                    }, window.location.origin+"/aws-api-swagger-ui/index.html");
                 } else {
                     console.error("No opener window found. Cannot send OAuth tokens.");
                 }
