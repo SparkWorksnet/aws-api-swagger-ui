@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OAuth2 Redirect</title>
+</head>
+<body>
+<script>
+    'use strict';
+    (function () {
+        function handleOAuthResponse() {
+            // Extract the hash fragment (containing access token, id token, etc.)
+            var params = new URLSearchParams(window.location.hash.substring(1));
+
+            // Pass extracted tokens back to Swagger UI via window.opener
+            if (params.has('access_token')) {
+                if (window.opener) {
+                    window.opener.postMessage({
+                        access_token: params.get('access_token'),
+                        id_token: params.get('id_token') || '',
+                        expires_in: params.get('expires_in') || '',
+                        token_type: params.get('token_type') || 'Bearer'
+                    }, window.location.origin+"/index.html");
+                } else {
+                    console.error("No opener window found. Cannot send OAuth tokens.");
+                }
+            }
+
+            // Close the popup window
+            // window.close();
+        }
+
+        handleOAuthResponse();
+    })();
+</script>
+</body>
+</html>

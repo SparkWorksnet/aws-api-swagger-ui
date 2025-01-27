@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swagger UI</title>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.18.2/swagger-ui.css">
+</head>
+<body>
+
+<div id="swagger-ui"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.18.2/swagger-ui-bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.18.2/swagger-ui-standalone-preset.js"></script>
+<script>
+    window.onload = () => {
+        const ui = SwaggerUIBundle({
+            url: "sparks.yaml",  // Path to your OpenAPI definition
+            dom_id: '#swagger-ui',
+            deepLinking: true,
+            oauth2RedirectUrl: window.location.origin + "/oauth2-redirect.html",
+            presets: [
+                SwaggerUIBundle.presets.apis,
+                SwaggerUIStandalonePreset
+            ],
+            plugins: [
+                SwaggerUIBundle.plugins.DownloadUrl
+            ],
+            layout: "StandaloneLayout",
+            requestInterceptor: (req) => {
+                const token = localStorage.getItem('swagger_id_token');
+                if (token) {
+                    req.headers.Authorization = `Bearer ${token}`;
+                }
+                return req;
+            }
+        });
+
+        // Listen for messages from oauth2-redirect.html
+        window.addEventListener("message", (event) => {
+            if (event.origin !== window.location.origin) {
+                console.error("Received message from unauthorized origin:", event.origin);
+                return;
+            }
+
+            if (event.data && event.data.access_token) {
+                console.log("Received OAuth tokens:", event.data);
+
+                // Store tokens for use in API requests
+                localStorage.setItem("swagger_access_token", event.data.access_token);
+                localStorage.setItem("swagger_id_token", event.data.id_token);
+
+                // Use the ID token (if needed)
+                document.getElementById('swagger-ui').setAttribute('data-oauth-token', event.data.id_token);
+            }
+        });
+    };
+</script>
+
+</body>
+</html>
