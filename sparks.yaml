@@ -2,8 +2,8 @@ openapi: 3.0.0
 
 info:
   version: 1.0.2
-  title: Wellics API
-  description: Access Interface for the Wellics Deployment in the SparkWorks IoT Data Analytics Platform
+  title: Spark Works IoT Data Analytics API
+  description: AP Interface for deployements of the SparkWorks IoT Data Analytics Platform
   contact:
     name: Spark Works Ltd
     url: 'https://www.sparkworks.net/'
