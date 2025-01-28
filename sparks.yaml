@@ -21,8 +21,10 @@ servers:
     description: deployment url
 
 tags:
-  - name: Device API
-    description: Device Operations
+  - name: Group API
+    description: Group Operations
+  - name: Thing API
+    description: Thing Operations
 
 paths:
   '/group':
