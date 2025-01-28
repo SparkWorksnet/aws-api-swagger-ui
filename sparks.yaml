@@ -173,34 +173,65 @@ paths:
               schema:
                 $ref: '#/components/schemas/TimeRangeResultDTO'
 
-
-
-
-  '/v1/device/{device}/attribute':
+  '/group/{groupId}/attribute':
     post:
       tags:
-        - Device API
-      summary: Update attributes of a single device
-      description: Add or replace attributes of a single device. If a value is null, the attribute will be removed
-      operationId: deviceUpdate
+        - Group API
+      summary: Update attributes of a Group
+      description: Add or replace attributes of a Group. If a value is null, the attribute will be removed
+      operationId: RegistryGroupAttributesUpdateFunction
       parameters:
-        - name: device
+        - name: groupId
           in: path
-          description: The device to update attributes for
+          description: The id of the group
           required: true
           schema:
             type: string
-            format: device
-            example: 'ea707af9de8b4357'
       requestBody:
         content:
           application/json:
             schema:
               example:
-                tenant: 'wellics'
-                space: 'office'
+                name: 'somename'
+                description: 'somedescription'
                 attr3: 'hello'
-                attr4: null
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupDTO'
+
+  '/group/{groupId}/thing/{thingId}/attribute':
+    post:
+      tags:
+        - Thing API
+      summary: Update attributes of a Thing
+      description: Add or replace attributes of a Thing. If a value is null, the attribute will be removed
+      operationId: RegistryThingAttributesUpdateFunction
+      parameters:
+        - name: groupId
+          in: path
+          description: The id of the Group
+          required: true
+          schema:
+            type: string
+        - name: thingId
+          in: path
+          description: The id of the Thing
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                name: 'somename'
+                description: 'somedescription'
+                attr3: 'hello'
         required: true
       responses:
         '200':
