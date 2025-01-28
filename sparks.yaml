@@ -245,11 +245,20 @@ paths:
 
 components:
   securitySchemes:
-    cognitoOAuth2:
+    'AMBITIOUS Authentication':
       type: oauth2
       flows:
         implicit: # Use "implicit" flow if no backend involved
           authorizationUrl: https://sparks-datalake-ambitious.auth.eu-west-1.amazoncognito.com/oauth2/authorize
+          scopes:
+            openid: Access OpenID Connect
+            profile: Access user profile
+            email: Access email information
+    'FLEETK Authentication':
+      type: oauth2
+      flows:
+        implicit: # Use "implicit" flow if no backend involved
+          authorizationUrl: https://sparks-datalake-fleetk.auth.eu-west-1.amazoncognito.com/oauth2/authorize
           scopes:
             openid: Access OpenID Connect
             profile: Access user profile
