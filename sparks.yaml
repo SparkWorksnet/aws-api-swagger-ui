@@ -10,6 +10,15 @@ info:
     email: info@sparkworks.net
 
 servers:
+  - url: 'https://api.{deployment}.pikei.cloud/{version}'
+    variables:
+      deployment:
+        default: demo
+        description: Customer ID assigned
+      version:
+        default: v1
+        description: API version
+    description: deployment url
   - url: 'https://api.{deployment}.sparkworks.cloud/{version}'
     variables:
       deployment:
