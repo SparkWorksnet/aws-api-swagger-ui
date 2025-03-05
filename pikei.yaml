@@ -1,0 +1,100 @@
+openapi: 3.0.0
+
+info:
+  version: 1.0.2
+  title: Pikei IoT Data Analytics API
+  description: AP Interface for deployements of the Pikei IoT Data Analytics Platform
+  contact:
+    name: Pikei
+    url: 'https://pikei.io/'
+    email: info@pikei.io
+
+servers:
+  - url: 'https://api.{deployment}.pikei.cloud/{version}'
+    variables:
+      deployment:
+        default: demo
+        description: Customer ID assigned
+      version:
+        default: v1
+        description: API version
+    description: deployment url
+
+paths:
+  /group:
+    $ref: "api.yaml#/paths/%2fgroup"
+  /group/{groupId}:
+    $ref: "api.yaml#/paths/%2fgroup%2f{groupId}"
+  /group/{groupId}/thing:
+    $ref: "api.yaml#/paths/%2fgroup%2f{groupId}%2fthing"
+  /thing:
+    $ref: "api.yaml#/paths/%2fthing"
+  /group/{groupId}/thing/{thingId}:
+    $ref: "api.yaml#/paths/%2fgroup%2f{groupId}%2fthing%2f{thingId}"
+  /group/{groupId}/thing/{thingId}/{measure}/query/timerange:
+    $ref: "api.yaml#/paths/%2fgroup%2f{groupId}%2fthing%2f{thingId}%2f{measure}%2fquery%2ftimerange"
+  /group/{groupId}/attribute:
+    $ref: "api.yaml#/paths/%2fgroup%2f{groupId}%2fattribute"
+  /group/{groupId}/thing/{thingId}/attribute:
+    $ref: "api.yaml#/paths/%2fgroup%2f{groupId}%2fthing%2f{thingId}%2fattribute"
+components:
+  securitySchemes:
+    'AMBITIOUS Authentication':
+      type: oauth2
+      flows:
+        implicit: # Use "implicit" flow if no backend involved
+          authorizationUrl: https://sparks-datalake-ambitious.auth.eu-west-1.amazoncognito.com/oauth2/authorize
+          scopes:
+            openid: Access OpenID Connect
+            profile: Access user profile
+            email: Access email information
+    'SCC Authentication':
+      type: oauth2
+      flows:
+        implicit: # Use "implicit" flow if no backend involved
+          authorizationUrl: https://sparks-datalake-scc.auth.eu-west-1.amazoncognito.com/oauth2/authorize
+          scopes:
+            openid: Access OpenID Connect
+            profile: Access user profile
+            email: Access email information
+    'FLEETK Authentication':
+      type: oauth2
+      flows:
+        implicit: # Use "implicit" flow if no backend involved
+          authorizationUrl: https://sparks-datalake-fleetk.auth.eu-west-1.amazoncognito.com/oauth2/authorize
+          scopes:
+            openid: Access OpenID Connect
+            profile: Access user profile
+            email: Access email information
+  parameters:
+    perPageParam:
+      $ref: './api.yaml#/components/parameters/perPageParam'
+    pageKey:
+      $ref: './api.yaml#/components/parameters/pageKey'
+    device:
+      $ref: './api.yaml#/components/parameters/device'
+    tenant:
+      $ref: './api.yaml#/components/parameters/tenant'
+    space:
+      $ref: './api.yaml#/components/parameters/space'
+  schemas:
+    MetadataDTO:
+      $ref: 'api.yaml#/components/schemas/MetadataDTO'
+    GroupListDTO:
+      $ref: 'api.yaml#/components/schemas/GroupListDTO'
+    GroupDTO:
+      $ref: 'api.yaml#/components/schemas/GroupDTO'
+    GroupAttributesDTO:
+      $ref: 'api.yaml#/components/schemas/GroupAttributesDTO'
+    ThingListDTO:
+      $ref: 'api.yaml#/components/schemas/ThingListDTO'
+    ThingDTO:
+      $ref: 'api.yaml#/components/schemas/ThingDTO'
+    ThingAttributesDTO:
+      $ref: 'api.yaml#/components/schemas/ThingAttributesDTO'
+    TimeRangeRequestDTO:
+      $ref: 'api.yaml#/components/schemas/TimeRangeRequestDTO'
+    TimeRangeResultDTO:
+      $ref: 'api.yaml#/components/schemas/TimeRangeResultDTO'
+    MeasurementsDTO:
+      $ref: 'api.yaml#/components/schemas/MeasurementsDTO'
