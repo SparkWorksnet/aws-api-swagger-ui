@@ -254,6 +254,15 @@ components:
             openid: Access OpenID Connect
             profile: Access user profile
             email: Access email information
+    'SCC Authentication':
+      type: oauth2
+      flows:
+        implicit: # Use "implicit" flow if no backend involved
+          authorizationUrl: https://sparks-datalake-scc.auth.eu-west-1.amazoncognito.com/oauth2/authorize
+          scopes:
+            openid: Access OpenID Connect
+            profile: Access user profile
+            email: Access email information
     'FLEETK Authentication':
       type: oauth2
       flows:
