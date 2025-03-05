@@ -12,7 +12,7 @@
         function handleOAuthResponse() {
             // Extract the hash fragment (containing access token, id token, etc.)
             var params = new URLSearchParams(window.location.hash.substring(1));
-
+            console.log(params)
             // Pass extracted tokens back to Swagger UI via window.opener
             if (params.has('access_token')) {
                 if (window.opener) {

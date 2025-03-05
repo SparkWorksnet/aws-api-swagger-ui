@@ -14,7 +14,12 @@
 <script>
     window.onload = () => {
         const ui = SwaggerUIBundle({
-            url: "sparks.yaml",  // Path to your OpenAPI definition
+            urls: [
+                {
+                    url: "pikei.yaml",
+                    name: "pikei"
+                }
+            ],
             dom_id: '#swagger-ui',
             deepLinking: true,
             oauth2RedirectUrl: window.location.origin + "/oauth2-redirect.html",

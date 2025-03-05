@@ -10,15 +10,6 @@ info:
     email: info@sparkworks.net
 
 servers:
-  - url: 'https://api.{deployment}.pikei.cloud/{version}'
-    variables:
-      deployment:
-        default: demo
-        description: Customer ID assigned
-      version:
-        default: v1
-        description: API version
-    description: deployment url
   - url: 'https://api.{deployment}.sparkworks.cloud/{version}'
     variables:
       deployment:
@@ -28,12 +19,6 @@ servers:
         default: v1
         description: API version
     description: deployment url
-
-tags:
-  - name: Group API
-    description: Group Operations
-  - name: Thing API
-    description: Thing Operations
 
 paths:
   '/group':
