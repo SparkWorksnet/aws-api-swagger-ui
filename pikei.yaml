@@ -21,222 +21,22 @@ servers:
     description: deployment url
 
 paths:
-  '/group':
-    get:
-      tags:
-        - Group API
-      summary: Retrieve a list of the available groups
-      description: Lists all available groups in the deployment.
-      operationId: RegistryGroupsFunction
-      security:
-        - cognitoOAuth2: [ ]
-      parameters:
-        - $ref: '#/components/parameters/perPageParam'
-        - $ref: '#/components/parameters/pageKey'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GroupListDTO'
-  '/group/{groupId}':
-    get:
-      tags:
-        - Group API
-      summary: Retrieve the data for a group by its id
-      description: Retrieve the latest values received from a single device and its stored description. The response contains the latest values received from the device, as well as all the properties stored in the platform for this specific device.
-      operationId: RegistryGroupFunction
-      parameters:
-        - name: groupId
-          in: path
-          description: The id of the group
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GroupDTO'
-  '/group/{groupId}/thing':
-    get:
-      tags:
-        - Group API
-      summary: Retrieve a list of Things for a Group by its id
-      description: Retrieve the latest values received from a single device and its stored description. The response contains the latest values received from the device, as well as all the properties stored in the platform for this specific device.
-      operationId: RegistryGroupThingsFunction
-      parameters:
-        - name: groupId
-          in: path
-          description: The id of the group
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ThingListDTO'
-
-  '/thing':
-    get:
-      tags:
-        - Thing API
-      summary: Retrieve a list of Things
-      description: Retrieve the latest values received from a single device and its stored description. The response contains the latest values received from the device, as well as all the properties stored in the platform for this specific device.
-      operationId: RegistryThingsFunction
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ThingListDTO'
-
-  '/group/{groupId}/thing/{thingId}':
-    get:
-      tags:
-        - Thing API
-      summary: Retrieve the data for a Thing by its id and Group id
-      description: Retrieve the latest values received from a single device and its stored description. The response contains the latest values received from the device, as well as all the properties stored in the platform for this specific device.
-      operationId: RegistryGroupThingFunction
-      parameters:
-        - name: groupId
-          in: path
-          description: The id of the group
-          required: true
-          schema:
-            type: string
-        - name: thingId
-          in: path
-          description: The id of the thing
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ThingDTO'
-
-  '/group/{groupId}/thing/{thingId}/{measure}/query/timerange':
-    post:
-      tags:
-        - Thing API
-      summary: Retrieve raw data for a single Thing
-      description: Retrieve all data for the given measure and device on a specific interval. The response contains all the raw data received from the device in the given from-to period.
-      operationId: queryRaw
-      parameters:
-        - $ref: '#/components/parameters/perPageParam'
-        - name: groupId
-          in: path
-          description: The id of the group
-          required: true
-          schema:
-            type: string
-        - name: thingId
-          in: path
-          description: The id of the thing
-          required: true
-          schema:
-            type: string
-        - name: measure
-          in: path
-          description: The measure to query data for
-          required: true
-          schema:
-            type: string
-            format: device
-            enum: [ 'temperature', 'humidity', "noise", "illuminance", "all" ]
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TimeRangeRequestDTO'
-        required: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TimeRangeResultDTO'
-
-  '/group/{groupId}/attribute':
-    post:
-      tags:
-        - Group API
-      summary: Update attributes of a Group
-      description: Add or replace attributes of a Group. If a value is null, the attribute will be removed
-      operationId: RegistryGroupAttributesUpdateFunction
-      parameters:
-        - name: groupId
-          in: path
-          description: The id of the group
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              example:
-                name: 'somename'
-                description: 'somedescription'
-                attr3: 'hello'
-        required: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GroupDTO'
-
-  '/group/{groupId}/thing/{thingId}/attribute':
-    post:
-      tags:
-        - Thing API
-      summary: Update attributes of a Thing
-      description: Add or replace attributes of a Thing. If a value is null, the attribute will be removed
-      operationId: RegistryThingAttributesUpdateFunction
-      parameters:
-        - name: groupId
-          in: path
-          description: The id of the Group
-          required: true
-          schema:
-            type: string
-        - name: thingId
-          in: path
-          description: The id of the Thing
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              example:
-                name: 'somename'
-                description: 'somedescription'
-                attr3: 'hello'
-        required: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ThingDTO'
-
+  /group:
+    $ref: "api.yaml#/paths/%2fgroup"
+  /group/{groupId}:
+    $ref: "api.yaml#/paths/%2fgroup%2f{groupId}"
+  /group/{groupId}/thing:
+    $ref: "api.yaml#/paths/%2fgroup%2f{groupId}%2fthing"
+  /thing:
+    $ref: "api.yaml#/paths/%2fthing"
+  /group/{groupId}/thing/{thingId}:
+    $ref: "api.yaml#/paths/%2fgroup%2f{groupId}%2fthing%2f{thingId}"
+  /group/{groupId}/thing/{thingId}/{measure}/query/timerange:
+    $ref: "api.yaml#/paths/%2fgroup%2f{groupId}%2fthing%2f{thingId}%2f{measure}%2fquery%2ftimerange"
+  /group/{groupId}/attribute:
+    $ref: "api.yaml#/paths/%2fgroup%2f{groupId}%2fattribute"
+  /group/{groupId}/thing/{thingId}/attribute:
+    $ref: "api.yaml#/paths/%2fgroup%2f{groupId}%2fthing%2f{thingId}%2fattribute"
 components:
   securitySchemes:
     'AMBITIOUS Authentication':
@@ -252,7 +52,7 @@ components:
       type: oauth2
       flows:
         implicit: # Use "implicit" flow if no backend involved
-          authorizationUrl: https://sparks-datalake-scc.auth.eu-west-1.amazoncognito.com/oauth2/authorize
+          authorizationUrl: https://idp.api.scc.pikei.cloud/oauth2/authorize
           scopes:
             openid: Access OpenID Connect
             profile: Access user profile
@@ -268,339 +68,33 @@ components:
             email: Access email information
   parameters:
     perPageParam:
-      in: query
-      name: perPage
-      required: false
-      schema:
-        type: integer
-        minimum: 20
-        maximum: 100
-        default: 20
-      description: The number of results per page to return.
+      $ref: './api.yaml#/components/parameters/perPageParam'
     pageKey:
-      in: query
-      name: pageKey
-      required: false
-      schema:
-        type: string
-      description: The index to the next page of entities.
+      $ref: './api.yaml#/components/parameters/pageKey'
     device:
-      in: query
-      name: device
-      required: false
-      schema:
-        type: string
-        example: 'ea707af9de8b4357'
-      description: List of device names to filter data for, separated by commas.
+      $ref: './api.yaml#/components/parameters/device'
     tenant:
-      in: query
-      name: tenant
-      required: false
-      schema:
-        type: string
-        example: 'wellics'
-      description: Tenant name to filter data for.
+      $ref: './api.yaml#/components/parameters/tenant'
     space:
-      in: query
-      name: space
-      required: false
-      schema:
-        type: string
-        example: 'office'
-      description: Space name to filter data for.
+      $ref: './api.yaml#/components/parameters/space'
   schemas:
     MetadataDTO:
-      title: MetadataDTO API Model
-      type: object
-      properties:
-        perPage:
-          title: Number of results per page
-          type: number
-          format: int64
-          example: 20
-        nextPageKey:
-          title: Key to access the next page of data
-          type: string
-          format: string
-          example: 'AQJp....zteQ=='
-        currentPageKey:
-          title: Key of the requested page
-          type: string
-          format: string
-          example: 'ADJp....zteD=='
-
+      $ref: 'api.yaml#/components/schemas/MetadataDTO'
     GroupListDTO:
-      title: GroupListDTO API Model
-      type: object
-      description: List of the devices
-      properties:
-        _metadata:
-          title: Metadata
-          description: Pagination metadata
-          type: array
-          items:
-            $ref: '#/components/schemas/MetadataDTO'
-        groups:
-          title: Device data
-          type: array
-          description: Array of the devices
-          items:
-            $ref: '#/components/schemas/GroupDTO'
+      $ref: 'api.yaml#/components/schemas/GroupListDTO'
     GroupDTO:
-      title: GroupDTO API Model
-      type: object
-      description: Group data object
-      properties:
-        group:
-          title: The name of the group
-          type: string
-          description: Indication of whether a sensor device has stopped transmitting measurements
-        attributes:
-          $ref: '#/components/schemas/GroupAttributesDTO'
+      $ref: 'api.yaml#/components/schemas/GroupDTO'
     GroupAttributesDTO:
-      title: GroupAttributesDTO API Model
-      description: Group attributes
-      type: object
-      properties:
-        name:
-          type: string
-          example: group-name
-        description:
-          type: string
-          example: some description
-        attr3:
-          type: string
-          format: attr3
-          example: hello
+      $ref: 'api.yaml#/components/schemas/GroupAttributesDTO'
     ThingListDTO:
-      title: ThingListDTO API Model
-      type: object
-      description: List of Things
-      properties:
-        _metadata:
-          title: Metadata
-          description: Pagination metadata
-          type: array
-          items:
-            $ref: '#/components/schemas/MetadataDTO'
-        things:
-          title: Things data
-          type: array
-          description: Array of the Things
-          items:
-            $ref: '#/components/schemas/ThingDTO'
-
+      $ref: 'api.yaml#/components/schemas/ThingListDTO'
     ThingDTO:
-      title: ThingDTO API Model
-      type: object
-      description: Thing data object
-      properties:
-        group:
-          title: The name of the group
-          type: string
-          description: Indication of whether a sensor device has stopped transmitting measurements
-          example: 'groupId'
-        thing:
-          title: The id of the thing
-          type: string
-          description: The id of the thing
-          example: 'thingId'
-        typeName:
-          title: The type of the device
-          type: string
-          description: The type of the device
-          format: type_name
-          example: 'someTypeName'
-        status:
-          title: The current status of the device, based on lastUpdate
-          type: string
-          description: Indication of whether a sensor device has stopped transmitting measurements
-          format: status
-          enum: [ 'ONLINE', 'OFFLINE' ]
-        attributes:
-          $ref: '#/components/schemas/ThingAttributesDTO'
-        lastUpdate:
-          type: integer
-          format: int64
-          example: 1613225568858
-        lastSensorValues:
-          title: Holder object with the device values
-          type: object
-          properties:
-            measure:
-              title: Measure name
-              type: string
-              format: measure
-            value:
-              title: Measured value
-              type: string
-              format: value
-          example:
-            temperature: 23.5
-            humidity: 43
-            illuminance: 46
-            noise: 2
-        sensorUnits:
-          title: Holder object with the device units
-          type: object
-          properties:
-            measure:
-              title: Measure name
-              type: string
-              format: measure
-            unit:
-              title: Measured unit
-              type: string
-              format: unit
-          example:
-            temperature: '°C'
-            humidity: '%'
-            illuminance: 'lux'
-            noise: 'raw'
+      $ref: 'api.yaml#/components/schemas/ThingDTO'
     ThingAttributesDTO:
-      title: ThingAttributesDTO API Model
-      description: Thing attributes
-      type: object
-      properties:
-        name:
-          type: string
-          example: somename
-        attr2:
-          type: string
-          format: attr2
-          example: hello
-
-
-
+      $ref: 'api.yaml#/components/schemas/ThingAttributesDTO'
     TimeRangeRequestDTO:
-      title: TimeRangeRequestDTO API Model
-      description: Timerange criteria
-      required:
-        - from
-        - to
-      type: object
-      properties:
-        from:
-          title: The UNIX timestamp of the start date for filtering
-          type: integer
-          description: The UNIX timestamp of the start date for filtering
-          format: int64
-          example: 1613225568858
-        to:
-          title: The UNIX timestamp of the end date for filtering
-          type: integer
-          description: The UNIX timestamp of the end date for filtering
-          format: int64
-          example: 1613325578858
-
+      $ref: 'api.yaml#/components/schemas/TimeRangeRequestDTO'
     TimeRangeResultDTO:
-      title: TimeRangeResultDTO API Model
-      description: Data query response
-      required:
-        - thing
-        - measure
-        - query.from
-        - query.to
-        - data
-      type: object
-      properties:
-        _metadata:
-          title: Metadata
-          description: Pagination metadata
-          type: array
-          items:
-            $ref: '#/components/schemas/MetadataDTO'
-        thing:
-          title: The id of the Thing
-          type: string
-          description: The id of the Thing
-          format: device
-          example: 'ea707af9de8b4357'
-        measure:
-          title: The name of the measurement
-          type: string
-          description: The name of the measurement
-          format: measure
-          example: 'all'
-          enum: [ 'temperature', 'humidity', "noise", "illuminance", "all" ]
-        query:
-          $ref: '#/components/schemas/TimeRangeRequestDTO'
-        data:
-          $ref: '#/components/schemas/MeasurementsDTO'
-
-
-
-
+      $ref: 'api.yaml#/components/schemas/TimeRangeResultDTO'
     MeasurementsDTO:
-      title: MeasurementsDTO API Model
-      description: The API Model describing the measurements stored in the Spark Works platform API Model
-      type: object
-      properties:
-        temperature:
-          type: array
-          items:
-            type: object
-            properties:
-              timestamp:
-                title: The UNIX timestamp of the received measurement
-                type: integer
-                description: The UNIX timestamp of the Date when measurement was collected as provided by the device
-                format: int64
-                example: 1613225568858
-              value:
-                title: The value of the measurement
-                type: number
-                description: The value of the measurement
-                format: double
-                example: 23.2
-        humidity:
-          type: array
-          items:
-            type: object
-            properties:
-              timestamp:
-                title: The UNIX timestamp of the received measurement
-                type: integer
-                description: The UNIX timestamp of the Date when measurement was collected as provided by the device
-                format: int64
-                example: 1613225568859
-              value:
-                title: The value of the measurement
-                type: number
-                description: The value of the measurement
-                format: double
-                example: 30.7
-        noise:
-          type: array
-          items:
-            type: object
-            properties:
-              timestamp:
-                title: The UNIX timestamp of the received measurement
-                type: integer
-                description: The UNIX timestamp of the Date when measurement was collected as provided by the device
-                format: int64
-                example: 1613225568858
-              value:
-                title: The value of the measurement
-                type: number
-                description: The value of the measurement
-                format: double
-                example: 2.7
-        illuminance:
-          type: array
-          items:
-            type: object
-            properties:
-              timestamp:
-                title: The UNIX timestamp of the received measurement
-                type: integer
-                description: The UNIX timestamp of the Date when measurement was collected as provided by the device
-                format: int64
-                example: 1613225568859
-              value:
-                title: The value of the measurement
-                type: number
-                description: The value of the measurement
-                format: integer
-                example: 500
+      $ref: 'api.yaml#/components/schemas/MeasurementsDTO'
