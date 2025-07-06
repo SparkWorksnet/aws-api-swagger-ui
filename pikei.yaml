@@ -101,5 +101,7 @@ components:
       $ref: './api.yaml#/components/schemas/GroupedTimeRangeRequestDTO'
     TimeRangeResultDTO:
       $ref: './api.yaml#/components/schemas/TimeRangeResultDTO'
+    GroupedTimeRangeResultDTO:
+      $ref: './api.yaml#/components/schemas/GroupedTimeRangeResultDTO'
     MeasurementsDTO:
       $ref: './api.yaml#/components/schemas/MeasurementsDTO'

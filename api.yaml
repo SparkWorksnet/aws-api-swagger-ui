@@ -215,7 +215,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TimeRangeResultDTO'
+                $ref: '#/components/schemas/GroupedTimeRangeResultDTO'
 
   '/group/{groupId}/attribute':
     post:
@@ -607,6 +607,41 @@ components:
           enum: [ 'temperature', 'humidity', "noise", "illuminance", "all" ]
         query:
           $ref: '#/components/schemas/TimeRangeRequestDTO'
+        data:
+          $ref: '#/components/schemas/MeasurementsDTO'
+
+    GroupedTimeRangeResultDTO:
+      title: GroupedTimeRangeResultDTO API Model
+      description: Data query response
+      required:
+        - thing
+        - measure
+        - query.from
+        - query.to
+        - data
+      type: object
+      properties:
+        _metadata:
+          title: Metadata
+          description: Pagination metadata
+          type: array
+          items:
+            $ref: '#/components/schemas/MetadataDTO'
+        thing:
+          title: The id of the Thing
+          type: string
+          description: The id of the Thing
+          format: device
+          example: 'ea707af9de8b4357'
+        measure:
+          title: The name of the measurement
+          type: string
+          description: The name of the measurement
+          format: measure
+          example: 'all'
+          enum: [ 'temperature', 'humidity', "noise", "illuminance", "all" ]
+        query:
+          $ref: '#/components/schemas/GroupedTimeRangeRequestDTO'
         data:
           $ref: '#/components/schemas/MeasurementsDTO'
 
