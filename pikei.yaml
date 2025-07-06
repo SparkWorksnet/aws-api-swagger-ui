@@ -33,6 +33,8 @@ paths:
     $ref: "api.yaml#/paths/%2fgroup%2f{groupId}%2fthing%2f{thingId}"
   /group/{groupId}/thing/{thingId}/{measure}/query/timerange:
     $ref: "api.yaml#/paths/%2fgroup%2f{groupId}%2fthing%2f{thingId}%2f{measure}%2fquery%2ftimerange"
+  /group/{groupId}/thing/{thingId}/{measure}/query/timerange/summary:
+    $ref: "api.yaml#/paths/%2fgroup%2f{groupId}%2fthing%2f{thingId}%2f{measure}%2fquery%2ftimerange%2fsummary"
   /group/{groupId}/attribute:
     $ref: "api.yaml#/paths/%2fgroup%2f{groupId}%2fattribute"
   /group/{groupId}/thing/{thingId}/attribute:
@@ -94,6 +96,8 @@ components:
       $ref: 'api.yaml#/components/schemas/ThingAttributesDTO'
     TimeRangeRequestDTO:
       $ref: 'api.yaml#/components/schemas/TimeRangeRequestDTO'
+    GroupedTimeRangeRequestDTO:
+      $ref: 'api.yaml#/components/schemas/GroupedTimeRangeRequestDTO'
     TimeRangeResultDTO:
       $ref: 'api.yaml#/components/schemas/TimeRangeResultDTO'
     MeasurementsDTO:

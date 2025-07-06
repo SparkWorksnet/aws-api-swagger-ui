@@ -173,6 +173,50 @@ paths:
               schema:
                 $ref: '#/components/schemas/TimeRangeResultDTO'
 
+'/group/{groupId}/thing/{thingId}/{measure}/query/timerange/summary':
+    post:
+      tags:
+        - Thing API
+      summary: Retrieve raw data for a single Thing
+      description: Retrieve all data for the given measure and device on a specific interval. The response contains all the raw data received from the device in the given from-to period.
+      operationId: queryRaw
+      parameters:
+        - $ref: '#/components/parameters/perPageParam'
+        - $ref: '#/components/parameters/pageKey'
+        - name: groupId
+          in: path
+          description: The id of the group
+          required: true
+          schema:
+            type: string
+        - name: thingId
+          in: path
+          description: The id of the thing
+          required: true
+          schema:
+            type: string
+        - name: measure
+          in: path
+          description: The measure to query data for
+          required: true
+          schema:
+            type: string
+            format: device
+            enum: [ 'temperature', 'humidity', "noise", "illuminance", "all" ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupedTimeRangeRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeRangeResultDTO'
+
   '/group/{groupId}/attribute':
     post:
       tags:
@@ -496,6 +540,34 @@ components:
           description: The UNIX timestamp of the end date for filtering
           format: int64
           example: 1613325578858
+
+    GroupedTimeRangeRequestDTO:
+      title: GroupedTimeRangeRequestDTO API Model
+      description: Timerange criteria
+      required:
+        - from
+        - to
+        - interval
+      type: object
+      properties:
+        from:
+          title: The UNIX timestamp of the start date for filtering
+          type: integer
+          description: The UNIX timestamp of the start date for filtering
+          format: int64
+          example: 1613225568858
+        to:
+          title: The UNIX timestamp of the end date for filtering
+          type: integer
+          description: The UNIX timestamp of the end date for filtering
+          format: int64
+          example: 1613325578858
+        interval:
+          title: The interval to group the data
+          type: string
+          description: The interval to group the data
+          format: string
+          example: 1d
 
     TimeRangeResultDTO:
       title: TimeRangeResultDTO API Model
