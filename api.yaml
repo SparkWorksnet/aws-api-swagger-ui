@@ -568,6 +568,12 @@ components:
           description: The interval to group the data
           format: string
           example: 1d
+        method:
+          title: The method to aggregate the data
+          type: string
+          description: The method to aggregate the data
+          format: string
+          enum: [ 'AVG','COUNT','SUM','MIN','MAX','FIRST_VALUE','LAST_VALUE','STDDEV','VARIANCE' ]
 
     TimeRangeResultDTO:
       title: TimeRangeResultDTO API Model
