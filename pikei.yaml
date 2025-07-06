@@ -22,23 +22,23 @@ servers:
 
 paths:
   /group:
-    $ref: "api.yaml#/paths/%2fgroup"
+    $ref: "./api.yaml#/paths/~1group"
   /group/{groupId}:
-    $ref: "api.yaml#/paths/%2fgroup%2f{groupId}"
+    $ref: "./api.yaml#/paths/~1group~1{groupId}"
   /group/{groupId}/thing:
-    $ref: "api.yaml#/paths/%2fgroup%2f{groupId}%2fthing"
+    $ref: "./api.yaml#/paths/~1group~1{groupId}~1thing"
   /thing:
-    $ref: "api.yaml#/paths/%2fthing"
+    $ref: "./api.yaml#/paths/~1thing"
   /group/{groupId}/thing/{thingId}:
-    $ref: "api.yaml#/paths/%2fgroup%2f{groupId}%2fthing%2f{thingId}"
+    $ref: "./api.yaml#/paths/~1group~1{groupId}~1thing~1{thingId}"
   /group/{groupId}/thing/{thingId}/{measure}/query/timerange:
-    $ref: "api.yaml#/paths/%2fgroup%2f{groupId}%2fthing%2f{thingId}%2f{measure}%2fquery%2ftimerange"
+    $ref: "./api.yaml#/paths/~1group~1{groupId}~1thing~1{thingId}~1{measure}~1query~1timerange"
   /group/{groupId}/thing/{thingId}/{measure}/query/timerange/summary:
-    $ref: "api.yaml#/paths/%2fgroup%2f{groupId}%2fthing%2f{thingId}%2f{measure}%2fquery%2ftimerange%2fsummary"
+    $ref: "./api.yaml#/paths/~1group~1{groupId}~1thing~1{thingId}~1{measure}~1query~1timerange~1summary"
   /group/{groupId}/attribute:
-    $ref: "api.yaml#/paths/%2fgroup%2f{groupId}%2fattribute"
+    $ref: "./api.yaml#/paths/~1group~1{groupId}~1attribute"
   /group/{groupId}/thing/{thingId}/attribute:
-    $ref: "api.yaml#/paths/%2fgroup%2f{groupId}%2fthing%2f{thingId}%2fattribute"
+    $ref: "./api.yaml#/paths/~1group~1{groupId}~1thing~1{thingId}~1attribute"
 components:
   securitySchemes:
     'AMBITIOUS Authentication':
@@ -81,24 +81,24 @@ components:
       $ref: './api.yaml#/components/parameters/space'
   schemas:
     MetadataDTO:
-      $ref: 'api.yaml#/components/schemas/MetadataDTO'
+      $ref: './api.yaml#/components/schemas/MetadataDTO'
     GroupListDTO:
-      $ref: 'api.yaml#/components/schemas/GroupListDTO'
+      $ref: './api.yaml#/components/schemas/GroupListDTO'
     GroupDTO:
-      $ref: 'api.yaml#/components/schemas/GroupDTO'
+      $ref: './api.yaml#/components/schemas/GroupDTO'
     GroupAttributesDTO:
-      $ref: 'api.yaml#/components/schemas/GroupAttributesDTO'
+      $ref: './api.yaml#/components/schemas/GroupAttributesDTO'
     ThingListDTO:
-      $ref: 'api.yaml#/components/schemas/ThingListDTO'
+      $ref: './api.yaml#/components/schemas/ThingListDTO'
     ThingDTO:
-      $ref: 'api.yaml#/components/schemas/ThingDTO'
+      $ref: './api.yaml#/components/schemas/ThingDTO'
     ThingAttributesDTO:
-      $ref: 'api.yaml#/components/schemas/ThingAttributesDTO'
+      $ref: './api.yaml#/components/schemas/ThingAttributesDTO'
     TimeRangeRequestDTO:
-      $ref: 'api.yaml#/components/schemas/TimeRangeRequestDTO'
+      $ref: './api.yaml#/components/schemas/TimeRangeRequestDTO'
     GroupedTimeRangeRequestDTO:
-      $ref: 'api.yaml#/components/schemas/GroupedTimeRangeRequestDTO'
+      $ref: './api.yaml#/components/schemas/GroupedTimeRangeRequestDTO'
     TimeRangeResultDTO:
-      $ref: 'api.yaml#/components/schemas/TimeRangeResultDTO'
+      $ref: './api.yaml#/components/schemas/TimeRangeResultDTO'
     MeasurementsDTO:
-      $ref: 'api.yaml#/components/schemas/MeasurementsDTO'
+      $ref: './api.yaml#/components/schemas/MeasurementsDTO'
