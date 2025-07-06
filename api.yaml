@@ -173,13 +173,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/TimeRangeResultDTO'
 
-'/group/{groupId}/thing/{thingId}/{measure}/query/timerange/summary':
+  '/group/{groupId}/thing/{thingId}/{measure}/query/timerange/summary':
     post:
       tags:
         - Thing API
       summary: Retrieve raw data for a single Thing
       description: Retrieve all data for the given measure and device on a specific interval. The response contains all the raw data received from the device in the given from-to period.
-      operationId: queryRaw
+      operationId: queryAggregated
       parameters:
         - $ref: '#/components/parameters/perPageParam'
         - $ref: '#/components/parameters/pageKey'

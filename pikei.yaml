@@ -39,6 +39,7 @@ paths:
     $ref: "./api.yaml#/paths/~1group~1{groupId}~1attribute"
   /group/{groupId}/thing/{thingId}/attribute:
     $ref: "./api.yaml#/paths/~1group~1{groupId}~1thing~1{thingId}~1attribute"
+
 components:
   securitySchemes:
     'AMBITIOUS Authentication':
