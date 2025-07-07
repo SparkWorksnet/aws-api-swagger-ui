@@ -101,6 +101,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ThingListDTO'
 
+  '/search/thing':
+    post:
+      tags:
+        - Thing API
+      summary: Retrieve a list of Things
+      description: Retrieve the latest values received from a single device and its stored description. The response contains the latest values received from the device, as well as all the properties stored in the platform for this specific device.
+      operationId: RegistrySearchThingsFunction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchThingRequestDTO'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThingListDTO'
+
   '/group/{groupId}/thing/{thingId}':
     get:
       tags:
@@ -518,7 +538,35 @@ components:
           format: attr2
           example: hello
 
+    SearchThingRequestDTO:
+      title: SearchThingRequestDTO API Model
+      description: Search criteria
+      required:
+        - attributes
+      type: object
+      properties:
+        attributes:
+          $ref: '#/components/schemas/SearchThingRequestAttributesDTO'
 
+    SearchThingRequestAttributesDTO:
+      title: SearchThingRequestAttributesDTO API Model
+      description: Attributes criteria
+      required:
+        - attribute1Name
+      type: object
+      properties:
+        attribute1Name:
+          title: attribute1Name
+          type: string
+          description: attribute1Name
+          format: string
+          example: attribute1Value
+        attribute2Name:
+          title: attribute2Name
+          type: string
+          description: attribute2Name
+          format: string
+          example: attribute2V*
 
     TimeRangeRequestDTO:
       title: TimeRangeRequestDTO API Model

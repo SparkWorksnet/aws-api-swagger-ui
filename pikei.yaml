@@ -29,6 +29,8 @@ paths:
     $ref: "./api.yaml#/paths/~1group~1{groupId}~1thing"
   /thing:
     $ref: "./api.yaml#/paths/~1thing"
+  /search/thing:
+    $ref: "./api.yaml#/paths/~1search~1thing"
   /group/{groupId}/thing/{thingId}:
     $ref: "./api.yaml#/paths/~1group~1{groupId}~1thing~1{thingId}"
   /group/{groupId}/thing/{thingId}/{measure}/query/timerange:
@@ -105,3 +107,5 @@ components:
       $ref: './api.yaml#/components/schemas/GroupedTimeRangeResultDTO'
     MeasurementsDTO:
       $ref: './api.yaml#/components/schemas/MeasurementsDTO'
+    SearchThingRequestDTO:
+      $ref: './api.yaml#/components/schemas/SearchThingRequestDTO'
