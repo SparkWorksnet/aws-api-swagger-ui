@@ -108,6 +108,9 @@ paths:
       summary: Retrieve a list of Things
       description: Retrieve the latest values received from a single device and its stored description. The response contains the latest values received from the device, as well as all the properties stored in the platform for this specific device.
       operationId: RegistrySearchThingsFunction
+      parameters:
+        - $ref: '#/components/parameters/perPageParam'
+        - $ref: '#/components/parameters/pageKey'
       requestBody:
         content:
           application/json:
