@@ -246,7 +246,7 @@ paths:
         - Thing API
       summary: Retrieve the distance covered by a thing based on conditions
       description: Retrieve the distance traveled reported for the given thing on specific conditions (interval, location).
-      operationId: query
+      operationId: queryDistance
       parameters:
         - name: groupId
           in: path
