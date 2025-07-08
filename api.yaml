@@ -909,14 +909,12 @@ components:
             Each ring must be a closed array of at least 4 coordinate pairs.
           items:
             type: array
+            minItems: 2
+            maxItems: 2
             items:
-              type: array
-              minItems: 2
-              maxItems: 2
-              items:
-                type: number
-            minItems: 3
-            example: [[100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0]]
+              type: number
+          minItems: 3
+          example: [[100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0]]
         interval:
           title: The interval to group the data
           type: string
