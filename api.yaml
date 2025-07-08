@@ -917,6 +917,18 @@ components:
                 type: number
             minItems: 3
             example: [[100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0]]
+        interval:
+          title: The interval to group the data
+          type: string
+          description: The interval to group the data
+          format: string
+          example: 1d
+        method:
+          title: The method to aggregate the data
+          type: string
+          description: The method to aggregate the data
+          format: string
+          enum: [ 'AVG','COUNT','SUM','MIN','MAX','FIRST_VALUE','LAST_VALUE','STDDEV','VARIANCE' ]
 
     TimestampQueryDTO:
       title: TimestampQueryDTO API Model
