@@ -33,6 +33,10 @@ paths:
     $ref: "./api.yaml#/paths/~1search~1thing"
   /group/{groupId}/thing/{thingId}:
     $ref: "./api.yaml#/paths/~1group~1{groupId}~1thing~1{thingId}"
+  /group/{groupId}/thing/{thingId}/{measure}/query:
+    $ref: "./api.yaml#/paths/~1group~1{groupId}~1thing~1{thingId}~1{measure}~1query"
+  /group/{groupId}/thing/{thingId}/distance:
+    $ref: "./api.yaml#/paths/~1group~1{groupId}~1thing~1{thingId}~1distance"
   /group/{groupId}/thing/{thingId}/{measure}/query/timerange:
     $ref: "./api.yaml#/paths/~1group~1{groupId}~1thing~1{thingId}~1{measure}~1query~1timerange"
   /group/{groupId}/thing/{thingId}/{measure}/query/timerange/summary:
@@ -100,3 +104,7 @@ components:
       $ref: './api.yaml#/components/schemas/MeasurementsDTO'
     SearchThingRequestDTO:
       $ref: './api.yaml#/components/schemas/SearchThingRequestDTO'
+    DataQueryRequestDTO:
+      $ref: './api.yaml#/components/schemas/DataQueryRequestDTO'
+    DistanceResultDTO:
+      $ref: './api.yaml#/components/schemas/DistanceResultDTO'

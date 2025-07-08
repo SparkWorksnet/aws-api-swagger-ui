@@ -196,6 +196,84 @@ paths:
               schema:
                 $ref: '#/components/schemas/TimeRangeResultDTO'
 
+  '/group/{groupId}/thing/{thingId}/{measure}/query':
+    post:
+      tags:
+        - Thing API
+      summary: Retrieve raw data for a one or more things and conditions
+      description: Retrieve all data for the given measure of a single or all devices on specific conditions (interval, location). The response contains all the raw data received from the device or all devices of the group in the given timestamp from-to period and/or location bounds.
+      operationId: query
+      parameters:
+        - $ref: '#/components/parameters/perPageParam'
+        - $ref: '#/components/parameters/pageKey'
+        - name: groupId
+          in: path
+          description: The id of the group
+          required: true
+          schema:
+            type: string
+        - name: thingId
+          in: path
+          description: The id of the thing or 'all'
+          required: true
+          schema:
+            type: string
+        - name: measure
+          in: path
+          description: The measure to query data for
+          required: true
+          schema:
+            type: string
+            format: device
+            enum: [ 'temperature', 'humidity', "noise", "illuminance", "weight", "all" ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataQueryRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataQueryResultDTO'
+
+  '/group/{groupId}/thing/{thingId}/distance':
+    post:
+      tags:
+        - Thing API
+      summary: Retrieve the distance covered by a thing based on conditions
+      description: Retrieve the distance traveled reported for the given thing on specific conditions (interval, location).
+      operationId: query
+      parameters:
+        - name: groupId
+          in: path
+          description: The id of the group
+          required: true
+          schema:
+            type: string
+        - name: thingId
+          in: path
+          description: The id of the thing or 'all'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataQueryRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DistanceResultDTO'
+
   '/group/{groupId}/thing/{thingId}/{measure}/query/timerange/summary':
     post:
       tags:
@@ -324,15 +402,6 @@ components:
       flows:
         implicit: # Use "implicit" flow if no backend involved
           authorizationUrl: https://sparks-datalake-scc.auth.eu-west-1.amazoncognito.com/oauth2/authorize
-          scopes:
-            openid: Access OpenID Connect
-            profile: Access user profile
-            email: Access email information
-    'FLEETK Authentication':
-      type: oauth2
-      flows:
-        implicit: # Use "implicit" flow if no backend involved
-          authorizationUrl: https://sparks-datalake-fleetk.auth.eu-west-1.amazoncognito.com/oauth2/authorize
           scopes:
             openid: Access OpenID Connect
             profile: Access user profile
@@ -661,6 +730,62 @@ components:
         data:
           $ref: '#/components/schemas/MeasurementsDTO'
 
+    DataQueryResultDTO:
+      title: DataQueryResultDTO API Model
+      description: Data query response
+      required:
+        - thing
+        - measure
+        - query.from
+        - query.to
+        - data
+      type: object
+      properties:
+        _metadata:
+          title: Metadata
+          description: Pagination metadata
+          type: array
+          items:
+            $ref: '#/components/schemas/MetadataDTO'
+        thing:
+          title: The id of the Thing
+          type: string
+          description: The id of the Thing
+          format: device
+          example: 'ea707af9de8b4357'
+        measure:
+          title: The name of the measurement
+          type: string
+          description: The name of the measurement
+          format: measure
+          example: 'all'
+          enum: [ 'temperature', 'humidity', "noise", "illuminance", "all" ]
+        query:
+          $ref: '#/components/schemas/DataQueryRequestDTO'
+        data:
+          $ref: '#/components/schemas/MeasurementsDTO'
+
+    DistanceResultDTO:
+      title: DistanceResultDTO API Model
+      description: Distance query response
+      required:
+        - thing
+        - distance
+      type: object
+      properties:
+        thing:
+          title: The id of the Thing
+          type: string
+          description: The id of the Thing
+          format: device
+          example: 'ea707af9de8b4357'
+        distance:
+          title: The value of the distance calculated
+          type: number
+          description: The value of the distance calculated
+          format: double
+          example: 23.2
+
     GroupedTimeRangeResultDTO:
       title: GroupedTimeRangeResultDTO API Model
       description: Data query response
@@ -695,9 +820,6 @@ components:
           $ref: '#/components/schemas/GroupedTimeRangeRequestDTO'
         data:
           $ref: '#/components/schemas/MeasurementsDTO'
-
-
-
 
     MeasurementsDTO:
       title: MeasurementsDTO API Model
@@ -772,3 +894,54 @@ components:
                 description: The value of the measurement
                 format: integer
                 example: 500
+
+    DataQueryRequestDTO:
+      title: DataQueryRequestDTO API Model
+      description: Data Query criteria
+      type: object
+      properties:
+        timestamp:
+          $ref: '#/components/schemas/TimestampQueryDTO'
+        location:
+          type: array
+          description: >
+            An array of LinearRings. The first is the exterior ring; any others are holes.
+            Each ring must be a closed array of at least 4 coordinate pairs.
+          items:
+            type: array
+            items:
+              type: array
+              minItems: 2
+              maxItems: 2
+              items:
+                type: number
+            minItems: 3
+            example: [[100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0]]
+
+    TimestampQueryDTO:
+      title: TimestampQueryDTO API Model
+      description: Timestamp Query criteria
+      type: object
+      properties:
+        from:
+          title: The UNIX timestamp of the start date for filtering
+          type: integer
+          description: The UNIX timestamp of the start date for filtering
+          format: int64
+          example: 1613225568858
+        to:
+          title: The UNIX timestamp of the end date for filtering
+          type: integer
+          description: The UNIX timestamp of the end date for filtering
+          format: int64
+          example: 1613325578858
+
+    GeolocationQueryDTO:
+      title: GeolocationQueryDTO API Model
+      description: Geolocation Query criteria
+      type: object
+      required:
+        - coordinates
+      properties:
+        coordinates:
+
