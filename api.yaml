@@ -200,8 +200,8 @@ paths:
     post:
       tags:
         - Thing API
-      summary: Retrieve raw data for a one or more things and conditions
-      description: Retrieve all data for the given measure of a single or all devices on specific conditions (interval, location). The response contains all the raw data received from the device or all devices of the group in the given timestamp from-to period and/or location bounds.
+      summary: Retrieve raw or aggregated data for a one or more measures of a thing based on temporal and location conditions
+      description: Retrieve all or aggregated data for a single or all measures of the given device on specific conditions (interval, location). The response contains all or aggregated data received from the device in the given timestamp from-to period and/or location bounds.
       operationId: query
       parameters:
         - $ref: '#/components/parameters/perPageParam'
