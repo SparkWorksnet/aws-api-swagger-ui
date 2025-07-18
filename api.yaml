@@ -3,7 +3,7 @@ openapi: 3.0.0
 info:
   version: 1.0.2
   title: Spark Works IoT Data Analytics API
-  description: AP Interface for deployements of the SparkWorks IoT Data Analytics Platform
+  description: AP Interface for deployments of the SparkWorks IoT Data Analytics Platform
   contact:
     name: Spark Works Ltd
     url: 'https://www.sparkworks.net/'
@@ -26,7 +26,7 @@ paths:
       tags:
         - Group API
       summary: Retrieve a list of the available groups
-      description: Lists all available groups in the deployment.
+      description: Returns a paginated list of all groups in the deployment. Groups are used to organize and categorize Things (devices) in the platform. The response includes group attributes such as name, description, and any custom attributes defined.
       operationId: RegistryGroupsFunction
       security:
         - cognitoOAuth2: [ ]
@@ -61,7 +61,7 @@ paths:
       tags:
         - Group API
       summary: Retrieve a list of Things for a Group by its id
-      description: Retrieve the latest values received from a single device and its stored description. The response contains the latest values received from the device, as well as all the properties stored in the platform for this specific device.
+      description: Returns a list of all Things (devices) that belong to the specified group. Each Thing includes its current status, last update timestamp, latest sensor values, and configured attributes.
       operationId: RegistryGroupThingsFunction
       parameters:
         - $ref: '#/components/parameters/groupId'
@@ -78,7 +78,7 @@ paths:
       tags:
         - Thing API
       summary: Retrieve a list of Things
-      description: Retrieve the latest values received from a single device and its stored description. The response contains the latest values received from the device, as well as all the properties stored in the platform for this specific device.
+      description: Returns a paginated list of all Things (devices) across all groups in the deployment. Each Thing entry includes its group association, type, status, last update time, latest sensor values, and configured attributes.
       operationId: RegistryThingsFunction
       parameters:
         - $ref: '#/components/parameters/perPageParam'
@@ -95,8 +95,8 @@ paths:
     post:
       tags:
         - Thing API
-      summary: Retrieve a list of Things
-      description: Retrieve the latest values received from a single device and its stored description. The response contains the latest values received from the device, as well as all the properties stored in the platform for this specific device.
+      summary: Search for Things based on attributes
+      description: Allows searching for Things based on their attribute values. Supports exact matches and wildcard patterns (using *) for attribute values. The search is performed across all groups and returns matching Things with their complete details.
       operationId: RegistrySearchThingsFunction
       parameters:
         - $ref: '#/components/parameters/perPageParam'
@@ -136,8 +136,8 @@ paths:
     post:
       tags:
         - Thing API
-      summary: Retrieve raw data for a single Thing
-      description: Retrieve all data for the given measure and device on a specific interval. The response contains all the raw data received from the device in the given from-to period.
+      summary: Retrieve raw measurement data for a Thing
+      description: Retrieves raw measurement data for a specific Thing and measure type within a given time range. Returns timestamp-value pairs for all measurements recorded during the specified period. Supports pagination for large datasets.
       operationId: queryRaw
       parameters:
         - $ref: '#/components/parameters/perPageParam'
@@ -163,8 +163,8 @@ paths:
     post:
       tags:
         - Thing API
-      summary: Retrieve raw or aggregated data for a one or more measures of a thing based on temporal and location conditions
-      description: Retrieve all or aggregated data for a single or all measures of the given device on specific conditions (interval, location). The response contains all or aggregated data received from the device in the given timestamp from-to period and/or location bounds.
+      summary: Query Thing data with advanced filtering
+      description: Advanced query endpoint that supports both temporal and spatial filtering of Thing measurements. Can return raw data or aggregated results based on the specified time interval and aggregation method. Supports querying single or multiple measures, and filtering by location bounds.
       operationId: query
       parameters:
         - $ref: '#/components/parameters/perPageParam'
@@ -190,8 +190,8 @@ paths:
     post:
       tags:
         - Thing API
-      summary: Retrieve the distance covered by a thing based on conditions
-      description: Retrieve the distance traveled reported for the given thing on specific conditions (interval, location).
+      summary: Calculate distance traveled by a Thing
+      description: Calculates the total distance traveled by a Thing based on its recorded location measurements within a specified time range. Returns the total distance in kilometers and optionally includes the location measurements used for the calculation.
       operationId: queryDistance
       parameters:
         - $ref: '#/components/parameters/groupId'
@@ -267,8 +267,8 @@ paths:
     post:
       tags:
         - Thing API
-      summary: Update attributes of a Thing
-      description: Add or replace attributes of a Thing. If a value is null, the attribute will be removed
+      summary: Update Thing attributes
+      description: Updates or removes attributes for a specific Thing. To update an attribute, provide the attribute name and new value. To remove an attribute, set its value to null. Common attributes include 'name' and 'description', but custom attributes can also be defined.
       operationId: RegistryThingAttributesUpdateFunction
       parameters:
         - $ref: '#/components/parameters/groupId'
