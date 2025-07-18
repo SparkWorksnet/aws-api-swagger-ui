@@ -200,7 +200,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TimeRangeRequestDTO'
+              $ref: '#/components/schemas/DataTimestampQueryRequestDTO'
         required: true
       responses:
         '200':
@@ -995,3 +995,11 @@ components:
           $ref: '#/components/schemas/Interval'
         method:
           $ref: '#/components/schemas/Method'
+
+    DataTimestampQueryRequestDTO:
+      title: DataQueryRequestDTO API Model
+      description: Data Query criteria
+      type: object
+      properties:
+        timestamp:
+          $ref: '#/components/schemas/TimeRangeRequestDTO'
