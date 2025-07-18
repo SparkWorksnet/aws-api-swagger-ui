@@ -48,12 +48,7 @@ paths:
       description: Retrieve the latest values received from a single device and its stored description. The response contains the latest values received from the device, as well as all the properties stored in the platform for this specific device.
       operationId: RegistryGroupFunction
       parameters:
-        - name: groupId
-          in: path
-          description: The id of the group
-          required: true
-          schema:
-            type: string
+        - $ref: '#/components/parameters/groupId'
       responses:
         '200':
           description: OK
@@ -69,12 +64,7 @@ paths:
       description: Retrieve the latest values received from a single device and its stored description. The response contains the latest values received from the device, as well as all the properties stored in the platform for this specific device.
       operationId: RegistryGroupThingsFunction
       parameters:
-        - name: groupId
-          in: path
-          description: The id of the group
-          required: true
-          schema:
-            type: string
+        - $ref: '#/components/parameters/groupId'
       responses:
         '200':
           description: OK
@@ -132,18 +122,8 @@ paths:
       description: Retrieve the latest values received from a single device and its stored description. The response contains the latest values received from the device, as well as all the properties stored in the platform for this specific device.
       operationId: RegistryGroupThingFunction
       parameters:
-        - name: groupId
-          in: path
-          description: The id of the group
-          required: true
-          schema:
-            type: string
-        - name: thingId
-          in: path
-          description: The id of the thing
-          required: true
-          schema:
-            type: string
+        - $ref: '#/components/parameters/groupId'
+        - $ref: '#/components/parameters/thingId'
       responses:
         '200':
           description: OK
@@ -162,26 +142,9 @@ paths:
       parameters:
         - $ref: '#/components/parameters/perPageParam'
         - $ref: '#/components/parameters/pageKey'
-        - name: groupId
-          in: path
-          description: The id of the group
-          required: true
-          schema:
-            type: string
-        - name: thingId
-          in: path
-          description: The id of the thing
-          required: true
-          schema:
-            type: string
-        - name: measure
-          in: path
-          description: The measure to query data for
-          required: true
-          schema:
-            type: string
-            format: device
-            enum: [ 'temperature', 'humidity', "noise", "illuminance", "all" ]
+        - $ref: '#/components/parameters/groupId'
+        - $ref: '#/components/parameters/thingId'
+        - $ref: '#/components/parameters/measure'
       requestBody:
         content:
           application/json:
@@ -206,26 +169,9 @@ paths:
       parameters:
         - $ref: '#/components/parameters/perPageParam'
         - $ref: '#/components/parameters/pageKey'
-        - name: groupId
-          in: path
-          description: The id of the group
-          required: true
-          schema:
-            type: string
-        - name: thingId
-          in: path
-          description: The id of the thing or 'all'
-          required: true
-          schema:
-            type: string
-        - name: measure
-          in: path
-          description: The measure to query data for
-          required: true
-          schema:
-            type: string
-            format: device
-            enum: [ 'temperature', 'humidity', "noise", "illuminance", "weight", "all" ]
+        - $ref: '#/components/parameters/groupId'
+        - $ref: '#/components/parameters/thingId'
+        - $ref: '#/components/parameters/measure'
       requestBody:
         content:
           application/json:
@@ -248,23 +194,13 @@ paths:
       description: Retrieve the distance traveled reported for the given thing on specific conditions (interval, location).
       operationId: queryDistance
       parameters:
-        - name: groupId
-          in: path
-          description: The id of the group
-          required: true
-          schema:
-            type: string
-        - name: thingId
-          in: path
-          description: The id of the thing or 'all'
-          required: true
-          schema:
-            type: string
+        - $ref: '#/components/parameters/groupId'
+        - $ref: '#/components/parameters/thingId'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DataQueryRequestDTO'
+              $ref: '#/components/schemas/TimeRangeRequestDTO'
         required: true
       responses:
         '200':
@@ -284,26 +220,9 @@ paths:
       parameters:
         - $ref: '#/components/parameters/perPageParam'
         - $ref: '#/components/parameters/pageKey'
-        - name: groupId
-          in: path
-          description: The id of the group
-          required: true
-          schema:
-            type: string
-        - name: thingId
-          in: path
-          description: The id of the thing
-          required: true
-          schema:
-            type: string
-        - name: measure
-          in: path
-          description: The measure to query data for
-          required: true
-          schema:
-            type: string
-            format: device
-            enum: [ 'temperature', 'humidity', "noise", "illuminance", "all" ]
+        - $ref: '#/components/parameters/groupId'
+        - $ref: '#/components/parameters/thingId'
+        - $ref: '#/components/parameters/measure'
       requestBody:
         content:
           application/json:
@@ -326,12 +245,7 @@ paths:
       description: Add or replace attributes of a Group. If a value is null, the attribute will be removed
       operationId: RegistryGroupAttributesUpdateFunction
       parameters:
-        - name: groupId
-          in: path
-          description: The id of the group
-          required: true
-          schema:
-            type: string
+        - $ref: '#/components/parameters/groupId'
       requestBody:
         content:
           application/json:
@@ -357,18 +271,8 @@ paths:
       description: Add or replace attributes of a Thing. If a value is null, the attribute will be removed
       operationId: RegistryThingAttributesUpdateFunction
       parameters:
-        - name: groupId
-          in: path
-          description: The id of the Group
-          required: true
-          schema:
-            type: string
-        - name: thingId
-          in: path
-          description: The id of the Thing
-          required: true
-          schema:
-            type: string
+        - $ref: '#/components/parameters/groupId'
+        - $ref: '#/components/parameters/thingId'
       requestBody:
         content:
           application/json:
@@ -448,7 +352,156 @@ components:
         type: string
         example: 'office'
       description: Space name to filter data for.
+    groupId:
+      in: path
+      name: groupId
+      description: The id of the group
+      required: true
+      schema:
+        type: string
+    thingId:
+      in: path
+      name: thingId
+      description: The id of the Thing
+      required: true
+      schema:
+        type: string
+    measure:
+      in: path
+      name: measure
+      description: The measure to query data for
+      required: true
+      schema:
+        type: string
+        format: device
+      examples:
+        all:
+          value: 'all'
+          summary: 'All measurements'
+        temperature:
+          value: 'temperature'
+          summary: 'Temperature measurement'
+        humidity:
+          value: 'humidity'
+          summary: 'Humidity measurement'
+        noise:
+          value: 'noise'
+          summary: 'Noise measurement'
+        illuminance:
+          value: 'illuminance'
+          summary: 'Illuminance measurement'
+        weight:
+          value: 'weight'
+          summary: 'Weight measurement'
+        other:
+          value: 'custom-measure-name'
+          summary: 'Custom measurement (replace with your own value)'
+
   schemas:
+    ThingId:
+      title: The id of the Thing
+      type: string
+      description: The id of the Thing
+      format: device
+      example: 'ea707af9de8b4357'
+    TypeName:
+      title: The type of the device
+      type: string
+      description: The type of the device
+      format: type_name
+      example: 'someTypeName'
+    Status:
+      title: The current status of the device, based on lastUpdate
+      type: string
+      description: Indication of whether a sensor device has stopped transmitting measurements
+      format: status
+      enum: [ 'ONLINE', 'OFFLINE' ]
+    LastUpdate:
+      type: integer
+      format: int64
+      example: 1613225568858
+    LastSensorValues:
+      title: Holder object with the device values
+      type: object
+      properties:
+        measure:
+          title: Measure name
+          type: string
+          format: measure
+        value:
+          title: Measured value
+          type: string
+          format: value
+      example:
+        temperature: 23.5
+        humidity: 43
+        illuminance: 46
+        noise: 2
+    SensorUnits:
+      title: Holder object with the device units
+      type: object
+      properties:
+        measure:
+          title: Measure name
+          type: string
+          format: measure
+        unit:
+          title: Measured unit
+          type: string
+          format: unit
+      example:
+        temperature: '°C'
+        humidity: '%'
+        illuminance: 'lux'
+        noise: 'raw'
+
+    FromTimestamp:
+      title: The UNIX timestamp of the start date for filtering
+      type: integer
+      description: The UNIX timestamp of the start date for filtering
+      format: int64
+      example: 1613225568858
+    ToTimestamp:
+      title: The UNIX timestamp of the end date for filtering
+      type: integer
+      description: The UNIX timestamp of the end date for filtering
+      format: int64
+      example: 1613325578858
+    Interval:
+      title: The interval to group the data
+      type: string
+      description: The interval to group the data
+      format: string
+      example: 1d
+    Method:
+      title: The method to aggregate the data
+      type: string
+      description: The method to aggregate the data
+      format: string
+      enum: [ 'AVG','COUNT','SUM','MIN','MAX','FIRST_VALUE','LAST_VALUE','STDDEV','VARIANCE' ]
+
+    Measure:
+      title: The name of the measurement
+      type: string
+      description: The name of the measurement
+      format: measure
+      examples:
+        all:
+          value: 'all'
+          summary: 'All measurements'
+        temperature:
+          value: 'temperature'
+          summary: 'Temperature measurement'
+        humidity:
+          value: 'humidity'
+          summary: 'Humidity measurement'
+        noise:
+          value: 'noise'
+          summary: 'Noise measurement'
+        illuminance:
+          value: 'illuminance'
+          summary: 'Illuminance measurement'
+
     MetadataDTO:
       title: MetadataDTO API Model
       type: object
@@ -541,62 +594,20 @@ components:
           description: Indication of whether a sensor device has stopped transmitting measurements
           example: 'groupId'
         thing:
-          title: The id of the thing
-          type: string
-          description: The id of the thing
-          example: 'thingId'
+          $ref: '#/components/schemas/ThingId'
         typeName:
-          title: The type of the device
-          type: string
-          description: The type of the device
-          format: type_name
-          example: 'someTypeName'
+          $ref: '#/components/schemas/TypeName'
         status:
-          title: The current status of the device, based on lastUpdate
-          type: string
-          description: Indication of whether a sensor device has stopped transmitting measurements
-          format: status
-          enum: [ 'ONLINE', 'OFFLINE' ]
+          $ref: '#/components/schemas/Status'
         attributes:
           $ref: '#/components/schemas/ThingAttributesDTO'
         lastUpdate:
-          type: integer
-          format: int64
-          example: 1613225568858
+          $ref: '#/components/schemas/LastUpdate'
         lastSensorValues:
-          title: Holder object with the device values
-          type: object
-          properties:
-            measure:
-              title: Measure name
-              type: string
-              format: measure
-            value:
-              title: Measured value
-              type: string
-              format: value
-          example:
-            temperature: 23.5
-            humidity: 43
-            illuminance: 46
-            noise: 2
+          $ref: '#/components/schemas/LastSensorValues'
         sensorUnits:
-          title: Holder object with the device units
-          type: object
-          properties:
-            measure:
-              title: Measure name
-              type: string
-              format: measure
-            unit:
-              title: Measured unit
-              type: string
-              format: unit
-          example:
-            temperature: '°C'
-            humidity: '%'
-            illuminance: 'lux'
-            noise: 'raw'
+          $ref: '#/components/schemas/SensorUnits'
+
     ThingAttributesDTO:
       title: ThingAttributesDTO API Model
       description: Thing attributes
@@ -649,17 +660,9 @@ components:
       type: object
       properties:
         from:
-          title: The UNIX timestamp of the start date for filtering
-          type: integer
-          description: The UNIX timestamp of the start date for filtering
-          format: int64
-          example: 1613225568858
+          $ref: '#/components/schemas/FromTimestamp'
         to:
-          title: The UNIX timestamp of the end date for filtering
-          type: integer
-          description: The UNIX timestamp of the end date for filtering
-          format: int64
-          example: 1613325578858
+          $ref: '#/components/schemas/ToTimestamp'
 
     GroupedTimeRangeRequestDTO:
       title: GroupedTimeRangeRequestDTO API Model
@@ -671,29 +674,13 @@ components:
       type: object
       properties:
         from:
-          title: The UNIX timestamp of the start date for filtering
-          type: integer
-          description: The UNIX timestamp of the start date for filtering
-          format: int64
-          example: 1613225568858
+          $ref: '#/components/schemas/FromTimestamp'
         to:
-          title: The UNIX timestamp of the end date for filtering
-          type: integer
-          description: The UNIX timestamp of the end date for filtering
-          format: int64
-          example: 1613325578858
+          $ref: '#/components/schemas/ToTimestamp'
         interval:
-          title: The interval to group the data
-          type: string
-          description: The interval to group the data
-          format: string
-          example: 1d
+          $ref: '#/components/schemas/Interval'
         method:
-          title: The method to aggregate the data
-          type: string
-          description: The method to aggregate the data
-          format: string
-          enum: [ 'AVG','COUNT','SUM','MIN','MAX','FIRST_VALUE','LAST_VALUE','STDDEV','VARIANCE' ]
+          $ref: '#/components/schemas/Method'
 
     TimeRangeResultDTO:
       title: TimeRangeResultDTO API Model
@@ -713,18 +700,9 @@ components:
           items:
             $ref: '#/components/schemas/MetadataDTO'
         thing:
-          title: The id of the Thing
-          type: string
-          description: The id of the Thing
-          format: device
-          example: 'ea707af9de8b4357'
+          $ref: '#/components/schemas/ThingId'
         measure:
-          title: The name of the measurement
-          type: string
-          description: The name of the measurement
-          format: measure
-          example: 'all'
-          enum: [ 'temperature', 'humidity', "noise", "illuminance", "all" ]
+          $ref: '#/components/schemas/Measure'
         query:
           $ref: '#/components/schemas/TimeRangeRequestDTO'
         data:
@@ -748,18 +726,9 @@ components:
           items:
             $ref: '#/components/schemas/MetadataDTO'
         thing:
-          title: The id of the Thing
-          type: string
-          description: The id of the Thing
-          format: device
-          example: 'ea707af9de8b4357'
+          $ref: '#/components/schemas/ThingId'
         measure:
-          title: The name of the measurement
-          type: string
-          description: The name of the measurement
-          format: measure
-          example: 'all'
-          enum: [ 'temperature', 'humidity', "noise", "illuminance", "all" ]
+          $ref: '#/components/schemas/Measure'
         query:
           $ref: '#/components/schemas/DataQueryRequestDTO'
         data:
@@ -774,17 +743,17 @@ components:
       type: object
       properties:
         thing:
-          title: The id of the Thing
-          type: string
-          description: The id of the Thing
-          format: device
-          example: 'ea707af9de8b4357'
+          $ref: '#/components/schemas/ThingId'
+        query:
+          $ref: '#/components/schemas/TimeRangeRequestDTO'
         distance:
-          title: The value of the distance calculated
+          title: The distance value
           type: number
-          description: The value of the distance calculated
+          description: The value of the distance between the all measurement's locations in kilometers (km)
           format: double
-          example: 23.2
+          example: 420.4
+    #        data:
+    #          $ref: '#/components/schemas/DistanceMeasurementsDTO'
 
     GroupedTimeRangeResultDTO:
       title: GroupedTimeRangeResultDTO API Model
@@ -804,18 +773,9 @@ components:
           items:
             $ref: '#/components/schemas/MetadataDTO'
         thing:
-          title: The id of the Thing
-          type: string
-          description: The id of the Thing
-          format: device
-          example: 'ea707af9de8b4357'
+          $ref: '#/components/schemas/ThingId'
         measure:
-          title: The name of the measurement
-          type: string
-          description: The name of the measurement
-          format: measure
-          example: 'all'
-          enum: [ 'temperature', 'humidity', "noise", "illuminance", "all" ]
+          $ref: '#/components/schemas/Measure'
         query:
           $ref: '#/components/schemas/GroupedTimeRangeRequestDTO'
         data:
@@ -823,7 +783,7 @@ components:
 
     MeasurementsDTO:
       title: MeasurementsDTO API Model
-      description: The API Model describing the measurements stored in the Spark Works platform API Model
+      description: The API Model describing the measurements stored in the platform
       type: object
       properties:
         temperature:
@@ -836,13 +796,14 @@ components:
                 type: integer
                 description: The UNIX timestamp of the Date when measurement was collected as provided by the device
                 format: int64
-                example: 1613225568858
               value:
                 title: The value of the measurement
                 type: number
                 description: The value of the measurement
                 format: double
-                example: 23.2
+          example:
+            - timestamp: 1613225568858
+              value: 23.2
         humidity:
           type: array
           items:
@@ -853,13 +814,14 @@ components:
                 type: integer
                 description: The UNIX timestamp of the Date when measurement was collected as provided by the device
                 format: int64
-                example: 1613225568859
               value:
                 title: The value of the measurement
                 type: number
                 description: The value of the measurement
                 format: double
-                example: 30.7
+          example:
+            - timestamp: 1613225568859
+              value: 30.7
         noise:
           type: array
           items:
@@ -870,13 +832,14 @@ components:
                 type: integer
                 description: The UNIX timestamp of the Date when measurement was collected as provided by the device
                 format: int64
-                example: 1613225568858
               value:
                 title: The value of the measurement
                 type: number
                 description: The value of the measurement
                 format: double
-                example: 2.7
+          example:
+            - timestamp: 1613225568858
+              value: 2.7
         illuminance:
           type: array
           items:
@@ -894,6 +857,102 @@ components:
                 description: The value of the measurement
                 format: integer
                 example: 500
+          example:
+            - timestamp: 1613225568859
+              value: 500
+
+    DistanceMeasurementsDTO:
+      title: DistanceMeasurementsDTO API Model
+      description: The API Model describing the distance calculated from measurements stored in the platform API Model
+      type: object
+      properties:
+        longitude:
+          type: array
+          items:
+            type: object
+            properties:
+              timestamp:
+                title: The UNIX timestamp of the received measurement
+                type: integer
+                description: The UNIX timestamp of the Date when measurement was collected as provided by the device
+                format: int64
+              value:
+                title: The value of the measurement
+                type: number
+                description: The value of the measurement
+                format: double
+          example:
+            - timestamp: 1613225568858
+              value: 21.73565
+            - timestamp: 1613225868858
+              value: 26.538339
+        latitude:
+          type: array
+          items:
+            type: object
+            properties:
+              timestamp:
+                title: The UNIX timestamp of the received measurement
+                type: integer
+                description: The UNIX timestamp of the Date when measurement was collected as provided by the device
+                format: int64
+              value:
+                title: The value of the measurement
+                type: number
+                description: The value of the measurement
+                format: double
+          example:
+            - timestamp: 1613225568858
+              value: 38.2483863
+            - timestamp: 1613225868858
+              value: 38.061125
+        distance:
+          type: array
+          items:
+            type: object
+            properties:
+              timestamp_1:
+                title: Origin measurement UNIX timestamp
+                type: integer
+                description: The UNIX timestamp of the Date when measurement of the origin location was received
+                format: int64
+                example: 1613225568858
+              latitude_1:
+                title: Origin measurement latitude
+                type: number
+                description: The latitude when measurement of the origin location was received
+                format: int64
+                example: 38.2483863
+              longitude_1:
+                title: Origin measurement longitude
+                type: number
+                description: The longitude when measurement of the origin location was received
+                format: int64
+                example: 21.73565
+              timestamp_2:
+                title: Destination measurement UNIX timestamp
+                type: integer
+                description: The UNIX timestamp of the Date when measurement of the destination location was received
+                format: int64
+                example: 1613225868858
+              latitude_2:
+                title: Destination measurement latitude
+                type: number
+                description: The latitude when measurement of the origin location was received
+                format: int64
+                example: 38.061125
+              longitude_2:
+                title: Destination measurement longitude
+                type: number
+                description: The longitude when measurement of the origin location was received
+                format: int64
+                example: 26.538339
+              value:
+                title: The distance value
+                type: number
+                description: The value of the distance between the two measurement's locations in kilometers (km)
+                format: double
+                example: 420.4
 
     DataQueryRequestDTO:
       title: DataQueryRequestDTO API Model
@@ -901,7 +960,7 @@ components:
       type: object
       properties:
         timestamp:
-          $ref: '#/components/schemas/TimestampQueryDTO'
+          $ref: '#/components/schemas/TimeRangeRequestDTO'
         location:
           type: array
           description: >
@@ -914,44 +973,8 @@ components:
             items:
               type: number
           minItems: 3
-          example: [[100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0]]
+          example: [ [ 100.0, 0.0 ], [ 101.0, 0.0 ], [ 101.0, 1.0 ], [ 100.0, 1.0 ], [ 100.0, 0.0 ] ]
         interval:
-          title: The interval to group the data
-          type: string
-          description: The interval to group the data
-          format: string
-          example: 1d
+          $ref: '#/components/schemas/Interval'
         method:
-          title: The method to aggregate the data
-          type: string
-          description: The method to aggregate the data
-          format: string
-          enum: [ 'AVG','COUNT','SUM','MIN','MAX','FIRST_VALUE','LAST_VALUE','STDDEV','VARIANCE' ]
-
-    TimestampQueryDTO:
-      title: TimestampQueryDTO API Model
-      description: Timestamp Query criteria
-      type: object
-      properties:
-        from:
-          title: The UNIX timestamp of the start date for filtering
-          type: integer
-          description: The UNIX timestamp of the start date for filtering
-          format: int64
-          example: 1613225568858
-        to:
-          title: The UNIX timestamp of the end date for filtering
-          type: integer
-          description: The UNIX timestamp of the end date for filtering
-          format: int64
-          example: 1613325578858
-
-    GeolocationQueryDTO:
-      title: GeolocationQueryDTO API Model
-      description: Geolocation Query criteria
-      type: object
-      required:
-        - coordinates
-      properties:
-        coordinates:
-
+          $ref: '#/components/schemas/Method'

@@ -108,3 +108,5 @@ components:
       $ref: './api.yaml#/components/schemas/DataQueryRequestDTO'
     DistanceResultDTO:
       $ref: './api.yaml#/components/schemas/DistanceResultDTO'
+    DistanceMeasurementsDTO:
+      $ref: './api.yaml#/components/schemas/DistanceMeasurementsDTO'
