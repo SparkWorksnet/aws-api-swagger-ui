@@ -322,14 +322,14 @@ components:
         minimum: 20
         maximum: 100
         default: 20
-      description: The number of results per page to return.
+      description: Number of results to return per page. Must be between 20 and 100.
     pageKey:
       in: query
       name: pageKey
       required: false
       schema:
         type: string
-      description: The index to the next page of entities.
+      description: Pagination token for retrieving the next page of results. Obtained from the _metadata of the previous response.
     device:
       in: query
       name: device
@@ -371,7 +371,7 @@ components:
     measure:
       in: path
       name: measure
-      description: The measure to query data for
+      description: The type of measurement to query. Can be a standard measurement type (temperature, humidity, etc.) or a custom measurement name.
       required: true
       schema:
         type: string
@@ -413,10 +413,11 @@ components:
       format: type_name
       example: 'someTypeName'
     Status:
-      title: The current status of the device, based on lastUpdate
-      type: string
-      description: Indication of whether a sensor device has stopped transmitting measurements
-      format: status
+      title: Device Status
+      description: |
+        Current operational status of the device:
+        * ONLINE - Device is actively sending measurements
+        * OFFLINE - Device has not sent measurements within the expected timeframe
       enum: [ 'ONLINE', 'OFFLINE' ]
     LastUpdate:
       type: integer
@@ -470,16 +471,30 @@ components:
       format: int64
       example: 1613325578858
     Interval:
-      title: The interval to group the data
-      type: string
-      description: The interval to group the data
-      format: string
-      example: 1d
+      title: Time Interval
+      description: |
+        Time interval for data aggregation. Format: number + unit
+        Units:
+        * s - seconds
+        * m - minutes
+        * h - hours
+        * d - days
+        Examples: "30s", "5m", "1h", "1d"
+      example: "1h"
+
     Method:
-      title: The method to aggregate the data
-      type: string
-      description: The method to aggregate the data
-      format: string
+      title: Aggregation Method
+      description: |
+        Specifies how to aggregate measurements over the specified interval:
+        * AVG - Calculate average value
+        * COUNT - Count number of measurements
+        * SUM - Sum of all values
+        * MIN - Minimum value in interval
+        * MAX - Maximum value in interval
+        * FIRST_VALUE - First value in interval
+        * LAST_VALUE - Last value in interval
+        * STDDEV - Standard deviation
+        * VARIANCE - Statistical variance
       enum: [ 'AVG','COUNT','SUM','MIN','MAX','FIRST_VALUE','LAST_VALUE','STDDEV','VARIANCE' ]
 
     Measure:
@@ -542,9 +557,9 @@ components:
           items:
             $ref: '#/components/schemas/GroupDTO'
     GroupDTO:
-      title: GroupDTO API Model
+      title: Group Data Transfer Object
+      description: Represents a logical grouping of Things (devices) with its attributes and metadata.
       type: object
-      description: Group data object
       properties:
         group:
           title: The name of the group
@@ -586,9 +601,9 @@ components:
             $ref: '#/components/schemas/ThingDTO'
 
     ThingDTO:
-      title: ThingDTO API Model
+      title: Thing Data Transfer Object
+      description: Represents an IoT device with its current status, measurements, and configuration.
       type: object
-      description: Thing data object
       properties:
         group:
           title: The name of the group
