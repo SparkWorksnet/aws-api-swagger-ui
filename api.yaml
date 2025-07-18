@@ -3,7 +3,7 @@ openapi: 3.0.0
 info:
   version: 1.0.2
   title: Spark Works IoT Data Analytics API
-  description: AP Interface for deployments of the SparkWorks IoT Data Analytics Platform
+  description: API Interface for IoT Data Analytics Platform providing comprehensive device management, real-time data collection, and analytics capabilities. Supports groups, things (devices), measurements, and location tracking.
   contact:
     name: Spark Works Ltd
     url: 'https://www.sparkworks.net/'
@@ -294,22 +294,24 @@ components:
   securitySchemes:
     'AMBITIOUS Authentication':
       type: oauth2
+      description: OAuth2 authentication for the Ambitious deployment using Amazon Cognito
       flows:
-        implicit: # Use "implicit" flow if no backend involved
+        implicit:
           authorizationUrl: https://sparks-datalake-ambitious.auth.eu-west-1.amazoncognito.com/oauth2/authorize
           scopes:
-            openid: Access OpenID Connect
-            profile: Access user profile
-            email: Access email information
+            openid: Required for authentication using OpenID Connect protocol
+            profile: Access to user profile information
+            email: Access to user email information
     'SCC Authentication':
       type: oauth2
+      description: OAuth2 authentication for the SCC deployment using Amazon Cognito
       flows:
-        implicit: # Use "implicit" flow if no backend involved
+        implicit:
           authorizationUrl: https://sparks-datalake-scc.auth.eu-west-1.amazoncognito.com/oauth2/authorize
           scopes:
-            openid: Access OpenID Connect
-            profile: Access user profile
-            email: Access email information
+            openid: Required for authentication using OpenID Connect protocol
+            profile: Access to user profile information
+            email: Access to user email information
   parameters:
     perPageParam:
       in: query
