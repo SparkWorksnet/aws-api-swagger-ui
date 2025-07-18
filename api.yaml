@@ -752,8 +752,8 @@ components:
           description: The value of the distance between the all measurement's locations in kilometers (km)
           format: double
           example: 420.4
-    #        data:
-    #          $ref: '#/components/schemas/DistanceMeasurementsDTO'
+        data:
+          $ref: '#/components/schemas/DistanceMeasurementsDTO'
 
     GroupedTimeRangeResultDTO:
       title: GroupedTimeRangeResultDTO API Model
@@ -906,53 +906,53 @@ components:
               value: 38.2483863
             - timestamp: 1613225868858
               value: 38.061125
-        distance:
-          type: array
-          items:
-            type: object
-            properties:
-              timestamp_1:
-                title: Origin measurement UNIX timestamp
-                type: integer
-                description: The UNIX timestamp of the Date when measurement of the origin location was received
-                format: int64
-                example: 1613225568858
-              latitude_1:
-                title: Origin measurement latitude
-                type: number
-                description: The latitude when measurement of the origin location was received
-                format: int64
-                example: 38.2483863
-              longitude_1:
-                title: Origin measurement longitude
-                type: number
-                description: The longitude when measurement of the origin location was received
-                format: int64
-                example: 21.73565
-              timestamp_2:
-                title: Destination measurement UNIX timestamp
-                type: integer
-                description: The UNIX timestamp of the Date when measurement of the destination location was received
-                format: int64
-                example: 1613225868858
-              latitude_2:
-                title: Destination measurement latitude
-                type: number
-                description: The latitude when measurement of the origin location was received
-                format: int64
-                example: 38.061125
-              longitude_2:
-                title: Destination measurement longitude
-                type: number
-                description: The longitude when measurement of the origin location was received
-                format: int64
-                example: 26.538339
-              value:
-                title: The distance value
-                type: number
-                description: The value of the distance between the two measurement's locations in kilometers (km)
-                format: double
-                example: 420.4
+#        distance:
+#          type: array
+#          items:
+#            type: object
+#            properties:
+#              timestamp_1:
+#                title: Origin measurement UNIX timestamp
+#                type: integer
+#                description: The UNIX timestamp of the Date when measurement of the origin location was received
+#                format: int64
+#                example: 1613225568858
+#              latitude_1:
+#                title: Origin measurement latitude
+#                type: number
+#                description: The latitude when measurement of the origin location was received
+#                format: int64
+#                example: 38.2483863
+#              longitude_1:
+#                title: Origin measurement longitude
+#                type: number
+#                description: The longitude when measurement of the origin location was received
+#                format: int64
+#                example: 21.73565
+#              timestamp_2:
+#                title: Destination measurement UNIX timestamp
+#                type: integer
+#                description: The UNIX timestamp of the Date when measurement of the destination location was received
+#                format: int64
+#                example: 1613225868858
+#              latitude_2:
+#                title: Destination measurement latitude
+#                type: number
+#                description: The latitude when measurement of the origin location was received
+#                format: int64
+#                example: 38.061125
+#              longitude_2:
+#                title: Destination measurement longitude
+#                type: number
+#                description: The longitude when measurement of the origin location was received
+#                format: int64
+#                example: 26.538339
+#              value:
+#                title: The distance value
+#                type: number
+#                description: The value of the distance between the two measurement's locations in kilometers (km)
+#                format: double
+#                example: 420.4
 
     DataQueryRequestDTO:
       title: DataQueryRequestDTO API Model
